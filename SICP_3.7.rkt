@@ -1,0 +1,32 @@
+#lang racket
+;Exercise 3.7
+(define (make-account-with-password balance password)
+  (define (deposit amount)
+    (begin (set! balance (+ balance amount))
+           balance))
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds"))
+  (define (wrong-password amount)
+    (cond (else "Incorrect password")))
+  (define (dispatch p m)
+    (if (eq? p password)
+        (cond ((eq? m 'withdraw) withdraw)
+              ((eq? m 'deposit) deposit)
+              (else (error "Unknown request:" m)))
+        wrong-password))
+  dispatch)
+
+(define (make-joint account first-password second-password)
+  (lambda (password m)
+    (if (eq? password second-password)
+        (account first-password m)
+        "Incorrect password")))
+
+(define acc (make-account-with-password 100 'butter))
+(define acc2 (make-joint acc 'butter 'bread))
+((acc 'butter 'withdraw) 20)
+((acc2 'bread 'deposit) 20)
+  
