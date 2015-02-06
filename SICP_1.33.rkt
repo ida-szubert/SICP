@@ -10,9 +10,11 @@
             (combiner (term a) (filtered-accumulate filter combiner null-value term (next a) next b))
             (filtered-accumulate filter combiner null-value term (next a) next b)))))
 
+
+;Sum of squares of all primes in range a b
 (define sum-of-squares-prime
   (lambda (a b)
-    (filtered-accumulate (prime? + 0 square a inc b))))
+    (filtered-accumulate prime? + 0 square a inc b)))
      
 (define (square x) (* x x))  
 (define (inc x) (+ x 1))
@@ -37,9 +39,11 @@
           ((divides? test-divisor n) test-divisor)
           (else (find-divisor n (next test-divisor))))))
 
+(sum-of-squares-prime 0 5)
 
-;0 to n
-;(gcd a n) = 1
+
+;Product of all integers smaller than n and coprime to n
+;i.e such that gcd (n, i) = 1
 (define product-of-coprimes
   (lambda (n)
     (define coprime?
@@ -54,3 +58,4 @@
         (gcd b (remainder a b)))))
 
 (product-of-coprimes 12)
+(product-of-coprimes 5)

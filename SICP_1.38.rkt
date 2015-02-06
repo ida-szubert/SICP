@@ -1,14 +1,13 @@
 #lang planet neil/sicp
 
-(define cont-frac-help
-  (lambda (n d k counter)
-    (if (> counter k)
-        1
-        (/ (n counter) (+ (d counter) (cont-frac-help n d k (+ counter 1)))))))
-
 (define cont-frac
   (lambda (n d k)
-    (cont-frac-help n d k 1)))
+    (define help
+      (lambda (counter)
+        (if (> counter k)
+            1
+            (/ (n counter) (+ (d counter) (help (+ counter 1)))))))
+    (help 0)))
 
 (define euler
   (lambda (k)

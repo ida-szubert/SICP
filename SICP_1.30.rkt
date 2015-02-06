@@ -12,8 +12,10 @@
     (define iter
       (lambda (a result)
         (if (> a b)
-            (result)
+            result
             (iter (next a) (+ result (term a))))))
     (iter a 0)))
-                  
+
+(sum (lambda (x) (* 2 x)) 1 (lambda (x) (+ x 1)) 5)
+(sum-iter (lambda (x) (* 2 x)) 1 (lambda (x) (+ x 1)) 5)     
             

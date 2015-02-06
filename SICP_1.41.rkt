@@ -4,9 +4,8 @@
   (lambda (f)
     (lambda (x) (f (f x)))))
 
-(define inc
-  (lambda (x)
-    (+ x 1)))
+(define (inc x) (+ x 1))
+
 (define (square x) (* x x))
 
 ((double inc) 0)
@@ -14,6 +13,7 @@
 
 (((double (double double)) inc) 5)
 (+ 16 5)
+
 ;((double (double double)) inc)
 ;(double (double double))
 ;(double double)

@@ -24,7 +24,7 @@
 
 (expmod 3 4 4)
 (expmod-AH 3 4 4)
-
+           
 ;old version
 (define fast-prime?
   (lambda (n times)
@@ -87,7 +87,7 @@
     (display " *** ")
     (display elapsed-time)))
 
-;(timed-prime-test 100000007)
+(timed-prime-test 100000007)
 (timed-prime-test-AH 100000007)
-;AH version does work, but it takes ages. Actually, execution never stops.
-;and I don't yet know why
+;AH version does work, but strangely.
+;it returns 100000007, but doesn't return the elapsed time, because it cannot be calculated

@@ -1,4 +1,4 @@
-#lang planet neil/sicp
+#lang racket
 
 (define (count-leaves x)
   (cond ((null? x) 0)
@@ -12,9 +12,11 @@
 ;and it doesn't evaluate futher
 
 ;Exercise 2.25
-;(cdr (car (cdr (cdr l))))
-;(car (car l))
-;(cdr (cdr (cdr (cdr (cdr (cdr l))))))
+(car (cdr (car (cdr (cdr '(1 3 (5 7) 9))))))
+(cadr (caddr '(1 3 (5 7) 9)))
+(car (car '((7))))
+(car (cdr (car (cdr (car (cdr (car (cdr (car (cdr (car (cdr '(1 (2 (3 (4 (5 (6 7))))))))))))))))))
+
 
 ;Exercise 2.26
 (define x (list 1 2 3))

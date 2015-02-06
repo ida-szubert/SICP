@@ -20,8 +20,9 @@
   (display (y-point p))
   (display ")"))
 
-(define start (make-point -1 2))
-(define end (make-point 3 -6))
-(define line (make-segment start end))
-(define m (midpoint-segment line))
-(print-point m)
+(define line
+  (let ((start (make-point -1 2))
+        (end (make-point 3 -6)))
+    (make-segment start end)))
+
+(print-point (midpoint-segment line))

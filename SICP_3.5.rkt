@@ -1,4 +1,5 @@
-#lang racket
+#lang planet neil/sicp
+(#%require (only math/base random-natural))
 
 ;Exercise 3.5
 ;Monte Carlo integration
@@ -14,7 +15,7 @@
     (cond ((= trials-remaining 0) (/ trials-passed trials))
           ((experiment) (iter (- trials-remaining 1) (+ trials-passed 1)))
           (else (iter (- trials-remaining 1) trials-passed))))
-  iter trials 0)
+  (iter trials 0))
 
 (define (estimate-integral p x1 x2 y1 y2 trials)
   (let ((rectangle-area (* (abs (- x2 x1)) (abs (- y2 y1)))))
@@ -22,17 +23,34 @@
     (let ((x (random-in-range x1 x2))
           (y (random-in-range y1 y2)))
       (p x y)))
-  (* rectangle-area (monte-carlo trials predicate-test))))
+  (* rectangle-area (monte-carlo trials predicate-test) 1.0))) ;the 1.0 is here so that I get decimal expansion instead of a fraction
 
-(define (predicate x y)
-    (<= (+ (square x) (square y)) 1)) ;for unit circle centred on (0,0)
-
+;x^2 + y^2 =< 1^2
 (define (square x) (* x x))
 
-(define (random-in-range low high)
+(define (predicate x y)
+    (<= (+ (square x) (square y)) 1))
+
+(define (random-in-range-1 low high)
   (let ((range (- high low)))
     (+ low (random range))))
 
-(estimate-integral predicate -2 2 -2 2 1000000)
+;(/ (estimate-integral predicate -10 10 -10 10 1000000) 100.0)
+;random is not really an appropriate procedure, since it expects integers, and returns integers
+;so if I'm thinking about a unit square circle, and want random numbers in the range -1 to 1, random is going to give me 0 and -1 only
+;ok, using a circle of radius 10 is better
+;but let's try 1 anyway
 
-;doesn't work, and I can't figure out why
+;using unit square, with this less-then-perfect way of generating random numbers, the result is mediocre
+;3.001044
+;estimating pi using a circle of radius 10 is way better
+;3.148932
+;the estimate should be equally precise for a unit-square circle had I a better random-in-range
+;actually:
+(define (random-in-range low high)
+  (let ((range (- high low)))
+    (+ low (/ (random (* 100 range)) 100.0))))
+;not perfect, but it works
+
+(estimate-integral predicate -1 1 -1 1 1000000)
+;3.14512

@@ -12,9 +12,9 @@
     (try first-guess)))
 
 (define (deriv g)
-  (lambda (x) (/ (- (g (+ x dx)) (g x)) dx)))
-
-(define dx 0.00001)
+  (lambda (x) 
+    (let ((dx 0.00001))
+      (/ (- (g (+ x dx)) (g x)) dx))))
 
 (define newton-transform
   (lambda (g)
@@ -30,6 +30,10 @@
       (+ (* x x x) (* a x x) (* b x) c))))
     
 (newtons-method (cubic 3 -2.4 6) 1)
+;-3.9813366488305104
+
+((cubic 3 -2.4 6) -3.9813366488305104)
+
 ;we need to feed newtons-method with the function we want to find the zero of
 ;this function gets transformed
 ;and we look for a fixed point of the transformed function

@@ -1,22 +1,21 @@
 #lang racket
 
-(define (cons x y)
+(define (another-cons x y)
   (lambda (m) (m x y)))
 
-(define (car z)
+(define (another-car z)
   (z (lambda (p q) p)))
 
-(car (cons x y)) ;what does it yield?
+;(another-car (another-cons x y))
+;what does it yield?
 
-(lambda (m)
-  (m x y)) ;applied to
-(lambda (p q)
-  p)
-;so
-((lambda (p q) p) ;applied to
-x y)
-;so
-x
+;((lambda (m) (m x y)) (lambda (p q) p))
+;((lambda (p q) p) x y)
+;x
 
-(define (cdr z)
+(define (another-cdr z)
   (z (lambda (p q) q)))
+
+(define a (another-cons 3 4))
+(another-car a)
+(another-cdr a)

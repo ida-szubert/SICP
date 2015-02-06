@@ -13,30 +13,38 @@
   (lambda (n a)
     (= (expmod a n n) a)))
 
-
-(define fermat-prime-help?
-  (lambda (n counter)
-    (cond ((= counter (- n 1)) #t)
-          ((fermat-test n counter) (fermat-test n (+ counter 1)))
-          (else #f))))
-
-(define fermat-prime?
-  (lambda (n)
-    (fermat-prime-help? n 2)))
-
-(define (fermat-full n)
+(define (fermat n)
    (define (iter counter)
      (cond ((= counter 1) #t)
            ((not (fermat-test n counter)) #f)
            (else (iter (- counter 1)))))
    (iter (- n 1)))
 
+;OR
+
+(define fermat-prime?
+  (lambda (n)
+    (define help
+      (lambda (counter)
+        (cond ((= counter (- n 1)) #t)
+              ((fermat-test n counter) (fermat-test n (+ counter 1)))
+              (else #f))))
+    (help 2)))
+
+
 (fermat-prime? 7)
+(fermat 7)
 (fermat-prime? 561)
+(fermat 561)
 (fermat-prime? 1105)
+(fermat 1105)
 (fermat-prime? 1729)
+(fermat 1729)
 (fermat-prime? 2465)
+(fermat 2465)
 (fermat-prime? 2821)
+(fermat 2821)
 (fermat-prime? 6601)
+(fermat 6601)
 
 ;all of these appear to be prime numbers under fermat's theorem

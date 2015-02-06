@@ -5,6 +5,7 @@
 (define (stream-cdr stream) (force (cdr stream)))
 (define (stream-null? s) (null? s))
 (define (the-empty-stream) '())
+(define ones (cons-stream 1 ones))
 
 (define (stream-filter pred stream)
   (cond ((stream-null? stream) the-empty-stream)
@@ -185,6 +186,35 @@
 
 
 ;Exercise 3.82
-;well, my 3.5 doesn't work
+(define (square x) (* x x))
+
+(define (monte-carlo-1 experiment-stream passed failed)
+  (define (next passed failed)
+    (cons-stream (/ passed (+ passed failed))
+                 (monte-carlo (stream-cdr experiment-stream) passed failed)))
+  (if (stream-car experiment-stream);because e-s is a stream of #t and #f
+      (next (+ passed 1) failed)
+      (next passed (+ failed 1))))
+
+(define (random-in-range low high)
+  (define (generate-random x)
+    (let ((range (- high low)))
+      (+ low (/ (random (* range 100)) 100))))
+  (cons-stream (generate-random 1) (stream-map generate-random ones)))
+
+(define (predicate x y)
+    (<= (+ (square x) (square y)) 1))
+
+(define (estimate-integral p x1 x2 y1 y2)
+  (let ((square-area (* (abs (- x2 x1)) (abs (- y2 y1)) 1.0));1.0 is here to give me result in decimal rather than fraction
+        (pi-estimate-stream (map-successive-pairs p (random-in-range x1 x2))))
+    (scale-stream (monte-carlo pi-estimate-stream 0 0) square-area)))
+
+(stream-ref (estimate-integral predicate -1 1 -1 1) 10000000)
+;3.13624... the 100000th term
+;that's not perfect...
+;3.14165... the 10000000th term
+
+
 
 

@@ -1,5 +1,6 @@
 #lang planet neil/sicp
 
+;Exercise 2.20
 ;dotted-tail notation
 ;if a parameter list has a dot before the last parameter' then on calling the procedure
 ;the final parameter's value will be the list of all the arguments that are not bound by other formal parameters
@@ -25,7 +26,7 @@
           (cons (car l) (get-odd (cdr l)))
           (get-odd (cdr l)))))
 
-(define l (list 1 2 3 4 5 6 7))
+(define l (list 1 2 3 4 5 6 7 8))
 (get-even l)
 (get-odd l)
 (same-parity 1 2 3 4 5 6 7)

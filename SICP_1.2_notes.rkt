@@ -25,7 +25,7 @@
 ;first write a function that computes the remainder of (/ a^b b)
 ;to find remainder (x*y) modulo z you can find remainder x z and remainder y z, multiply them, and find the remainder of the result z 
 ;when b is even, find the remainder of a^(b/2) modulo b and square it (i.e. you are finding remainders x z and y z, only that x and y are the same in this case)
-;the find the remainder of this product modulo b
+;then find the remainder of this product modulo b
 ;it will be the same as the remainder a^b modulo b
 
 (define expmod

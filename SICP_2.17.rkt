@@ -34,6 +34,5 @@
   (if (null? l)
       l
       (append (reverse (cdr l)) (cons (car l) '()))))
-
   
 (reverse list)

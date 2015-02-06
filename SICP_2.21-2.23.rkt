@@ -20,6 +20,8 @@
 
 (define (square x) (* x x))
 
+(square-list '(8 7 5 4 2 1))
+(square-list2 '(8 7 5 4 2 1))
 
 ;Exercise 2.22
 (define (square-list-iter items)
@@ -30,7 +32,7 @@
   (iter items nil))
 
 ;this definition produces a list of squares, but the order is reversed relative to the originial list
-;that's because at aeach step we cons the square of (car l) onto the answer list
+;that's because at each step we cons the square of (car l) onto the answer list
 ;i.e. we cons square of the fist element onto (), then we cons square of the second element onto that, etc.
 
 (define (square-list-iter2 items)

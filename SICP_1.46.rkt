@@ -37,20 +37,32 @@
 ;iterative-improve
 (define iter-improve
   (lambda (good-enough? improve-guess)
-    (define (help-function guess)
+    (define (help guess)
        (if (good-enough? guess)
            guess
-           (help-function (improve-guess guess))))
-    help-function))
+           (help (improve-guess guess))))
+    help))
 
 ;square root
 (define new-sqrt
   (lambda (x)
+    (define good-enough?
+      (lambda (a) (< (abs (- (square a) x)) 0.001)))
+    (define improve
+      (lambda (a) (average a (/ x a)))) 
     ((iter-improve good-enough? improve) 1.0)))
+
+(new-sqrt 81)
+(new-sqrt 2)
 
 ;fixed point
 (define new-fixed-point
-  (lambda (f first-guess)
-    ((iter-improve (lambda (x y) (< (abs (- x y)) 0.00001)) f) first-guess)))
+  (lambda (f guess)
+    (define good-enough?
+      (lambda (a) (< (abs (- (f a) a)) 0.00001)))
+    ((iter-improve good-enough? f) (f guess))))
+
+(new-fixed-point cos 1.0)
+(fixed-point cos 1.0)
 
  

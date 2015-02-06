@@ -32,13 +32,12 @@
   (lambda (f n)
     (repeated (smooth f) n)))
 
+
 ;Exercise 1.45
 ;finding fixed points works fine with average-damp for f(y) = x/y^2 and f(y) = x/y^3
 ;it doesn't for n>3
 ;to make it work, you need to modify the fixed-point procedure to include a number of repetitions of average-damp
 ;we don't yet know how many repetitions are needed with respect to n
-
-
 
 (define fixed-point
   (lambda (f first-guess)
@@ -68,9 +67,9 @@
 (define (4th-root x)
   (fixed-point ((repeated average-damp 2) (lambda (y) (/ x (cube y)))) 1.0))
 
-;(sqrt 4)
-;(cube-root 8)
-;(4th-root 16)
+(sqrt 4)
+(cube-root 8)
+(4th-root 16)
 ;even cubic root works better with repeated average-damp
 
 (define (log2 x) (/ (log x) (log 2)))
@@ -106,13 +105,9 @@
 ;log2 (n + 1) = a + 1
 ;(log2 (n + 1)) - 1 = a
 
-;scheme doesn't have a log2 function
-;this is from bill the lizard:
-;(define (log2 x) (/ (log x) (log 2)))
+;scheme doesn't have a log2 function, so I need to define it
 ;using this to determine the number of repetitions doesn't work; we run out of memory
 ;that's because I don't know much about mathematics; I need to floor the resulting number to be sure to get an integer
-;still, that's not it
-;for some reason I don't get, it's enough to compute (floor (log2 n))
-;and now everything is fine
+
 
 

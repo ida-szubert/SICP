@@ -14,13 +14,19 @@
   (/ (+ (lower-bound i) (upper-bound i)) 2))
 
 (define (width i)
-  (/ (- (upper-bound i) (lower-bound i)) 2)) 
+  (/ (- (upper-bound i) (lower-bound i)) 2))
+
+(define y (make-interval 6.12 7.48))
+(center y)
+(width y)
 
 (define (make-center-percent c p)
   (make-interval  (- c (* (/ p 100) c)) (+ c (* (/ p 100) c))))
 
 (define (percent i)
   (* (/ (- (upper-bound i) (center i)) (center i)) 100))
+
+(percent y)
               
 ;Exercise 2.13
 (define (spans-zero? a)
@@ -28,7 +34,7 @@
 
 (define mul-interval
   (lambda (x y)
-    (if (and (spans-zero? x) (spans-zero? y))
+    (if (or (spans-zero? x) (spans-zero? y))
         (let ((p1 (* (lower-bound x) (lower-bound y)))
               (p2 (* (lower-bound x) (upper-bound y)))
               (p3 (* (upper-bound x) (lower-bound y)))
@@ -39,9 +45,6 @@
 ;how can we approximate the p of the product of two intervals?
 (define a (make-center-percent 2 1.5))
 (define b (make-center-percent 3.5 1))
-
-(percent a); 1.49999
-(percent b); 1.00000
 
 (define c (mul-interval a b))
 (percent c); 2.49962
